@@ -1,0 +1,53 @@
+% Copyright 2024 Hanson Char
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%
+%   <https://www.latex-project.org/lppl.txt>
+
+% l3build save assert
+% l3build check assert
+\documentclass{minimal}
+\input{texassert-regression-test}
+
+\RequirePackage{txassert}
+\begin{document}
+\START
+
+\SEPARATOR
+\TYPE{Positive Testing \string\asserteq}
+\SEPARATOR
+\PTEST \asserteq1=1 \TSETP
+\PTEST \asserteq{1}={1}\TSETP
+\PTEST \asserteq11={11}\TSETP
+\PTEST \asserteq some param={some param}\TSETP
+\PTEST \asserteq someparam={someparam}\TSETP
+\PTEST \asserteq{anyparam}={anyparam}\TSETP
+\assertionsummary
+
+\SEPARATOR
+\TYPE{Negative Testing \string\asserteq}
+\SEPARATOR
+\NTEST \asserteq{1}={2} \TSETN
+\NTEST \asserteq1=2 \TSETN
+\NTEST \asserteq first param={second param}\TSETN
+\assertionsummary
+
+\SEPARATOR
+\TYPE{Positive Testing \string\asserteqnocat}
+\SEPARATOR
+\OMIT \newdimen\dima \TIMO
+\PTEST \dima=0.0pt \asserteqnocat\the\dima={0.0pt}\TSETP
+\PTEST \dima=0pt \asserteqnocat\the\dima={0.0pt}\TSETP
+\PTEST \asserteqnocat{1x3}={1x3}\TSETP
+\assertionsummary
+
+\SEPARATOR
+\TYPE{Negative Testing \string\asserteqnocat}
+\SEPARATOR
+\NTEST \asserteqnocat{1x3}={1x}\TSETN
+\assertionsummary
+
+\END

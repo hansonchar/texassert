@@ -1,0 +1,31 @@
+% Copyright 2024 Hanson Char
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%
+%   <https://www.latex-project.org/lppl.txt>
+
+% l3build save lengthof
+% l3build check lengthof
+\documentclass{minimal}
+\input{texassert-regression-test}
+
+\RequirePackage{txassert}
+\begin{document}
+\START
+\SEPARATOR
+\TYPE{Testing \string\lengthof}
+\SEPARATOR
+
+\PTEST \lengthof{}\the\length        \asserteq\the\length=0 \TSETP
+\PTEST \lengthof{0}\the\length       \asserteq\the\length=1 \TSETP
+\PTEST \lengthof{12}\the\length      \asserteq\the\length=2 \TSETP
+\PTEST \lengthof{12.}\the\length     \asserteq\the\length=3 \TSETP
+\PTEST \lengthof{12.345}\the\length  \asserteq\the\length=6 \TSETP
+\PTEST \lengthof{12.3456}\the\length \asserteq\the\length=7 \TSETP
+
+\assertionsummary
+
+\END

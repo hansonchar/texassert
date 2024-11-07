@@ -1,0 +1,35 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+Positive Testing \asserteq
+============================================================
+PASSED
+PASSED
+PASSED
+PASSED
+PASSED
+PASSED
+Assertion Summary: 6/6 assertions passed i.e. 0/6 assertions failed.
+============================================================
+Negative Testing \asserteq
+============================================================
+... *** assertion (1) failure: `1' not equal `2' ***
+PASSED
+... *** assertion (2) failure: `1' not equal `2' ***
+PASSED
+... *** assertion (3) failure: `first param' not equal `second param' ***
+PASSED
+Assertion Summary: 0/3 assertions passed i.e. 3/3 assertions failed.
+============================================================
+Positive Testing \asserteqnocat
+============================================================
+PASSED
+PASSED
+PASSED
+Assertion Summary: 3/3 assertions passed i.e. 0/3 assertions failed.
+============================================================
+Negative Testing \asserteqnocat
+============================================================
+... *** assertion (1) failure: `1x3' not equal `1x' ***
+PASSED
+Assertion Summary: 0/1 assertions passed i.e. 1/1 assertions failed.
