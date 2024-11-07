@@ -6,9 +6,11 @@
 % The latest version of this license is in
 %
 %   <https://www.latex-project.org/lppl.txt>
-\ProvidesPackage{txassert}
-
 \input import \import{checkeq}
+
+\ifDefined\ProvidesPackage\then
+  \ProvidesPackage{txassert}
+\fi
 
 \newcount\countassertions
 \newcount\countassertionspassed

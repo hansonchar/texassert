@@ -29,3 +29,14 @@
 \def\ifEmpty#1\then{%
   \checkifempty{#1}\ifempty
 }
+
+\long\def\ifUndefined#1\then{{%
+  \edef\x{\meaning#1}%
+  \let\e=\escapechar \escapechar=-1
+  \edef\y{\string\undefined}\escapechar=\e
+  \def\true{\iftrue}\def\false{\iffalse}%
+  \def\next{\expandafter\expandafter\expandafter\aftergroup\ifx\x\y\true\else\false\fi}\next}}
+
+\long\def\not#1#2\then{#1#2\then \false \else \true \fi \bool}
+
+\long\def\ifDefined#1\then{\ifUndefined#1\then \false \else \true\fi \bool}
