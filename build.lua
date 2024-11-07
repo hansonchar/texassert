@@ -15,9 +15,9 @@ tdsdirs = {tex = "tex"}
 -- recordstatus = true
 
 -- ctanpkg = module
-
+typesetfiles  = {"*.tex"}
 -- typesetdir = "doc"
--- typesetexe = "pdftex"
+typesetexe = "pdftex"
 -- docfiles = { "txassert-doc.tex" }
 
 --[==================[
