@@ -16,8 +16,13 @@ tdsdirs = {tex = "tex"}
 
 -- ctanpkg = module
 typesetfiles  = {"*.tex"}
+
+-- See https://github.com/latex3/l3build/discussions/390 on the issue of the broken
+-- "typesetdir", and the work around using "docfiledir".
 -- typesetdir = "doc"
+
 typesetexe = "pdftex"
+
 -- docfiles = { "txassert-doc.tex" }
 
 --[==================[
