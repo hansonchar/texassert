@@ -67,10 +67,12 @@
 %^^A \StopEventually is deprecated by \MaybeStop
 % \section{Implementation}
 
+%%%%^^A import.tex %%%%
 % \iffalse
 %<*macro:import>\fi
-% \begin{macro}{import.tex}Contains |\import|.\end{macro}
-% \begin{macro}{\import}
+% \begin{macro}{import.tex}
+%   Contains |\import|.
+%   \begin{macro}{\import}
 % Used to prevent the same file from being |\input| more than once.
 %    \begin{macrocode}
 \def\import#1{%
@@ -81,10 +83,12 @@
   \fi
 }
 %    \end{macrocode}
+%   \end{macro}
 % \end{macro}
 % \iffalse
 %</macro:import>\fi
-%
+
+%%%%^^A common.tex %%%%
 % \iffalse
 %<*macro:common>\fi
 % \begin{macro}{common.tex}
@@ -99,20 +103,19 @@
 \def\true{\let\bool=\iftrue}
 \def\false{\let\bool=\iffalse}
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{macro}{\debug}
-% Writes a line of debug message immediately to the terminal and the log file
-% when debugging is enabled (via |\debugtrue| which is the default).
+%   \begin{macro}{\debug}
+%     Writes a line of debug message immediately to the terminal and the log file
+%     when debugging is enabled (via |\debugtrue| which is the default).
 %    \begin{macrocode}
 \newif\ifdebug
 \debugtrue
 \def\debug#1{\ifdebug \immediate\write16{[DEBUG] #1}\fi}
 %    \end{macrocode}
-% \end{macro}
+%   \end{macro}
 %
-% \begin{macro}{\ifEmpty}
-% Checks if the given parameter is empty.
+%   \begin{macro}{\ifEmpty}
+%     Checks if the given parameter is empty.
 %    \begin{macrocode}
 \newif\ifempty
 \def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
@@ -126,10 +129,10 @@
   \checkifempty{#1}\ifempty
 }
 %    \end{macrocode}
-% \end{macro}
+%   \end{macro}
 %
-% \begin{macro}{\ifUndefined}
-% Checks if the given control sequence is undefined.
+%   \begin{macro}{\ifUndefined}
+%     Checks if the given control sequence is undefined.
 %    \begin{macrocode}
 \long\def\ifUndefined#1\then{{%
   \edef\x{\meaning#1}%
@@ -139,24 +142,26 @@
   \def\next{\expandafter\expandafter\expandafter
     \aftergroup\ifx\x\y\true\else\false\fi}\next}}
 %    \end{macrocode}
-% \end{macro}
+%   \end{macro}
 %
-% \begin{macro}{\ifDefined}
-% Checks if the given control sequence is defined.
+%   \begin{macro}{\ifDefined}
+%     Checks if the given control sequence is defined.
 %    \begin{macrocode}
 \long\def\not#1#2\then{#1#2\then \false \else \true \fi \bool}
 \long\def\ifDefined#1\then{\ifUndefined#1\then \false \else \true\fi \bool}
 %    \end{macrocode}
+%   \end{macro}
 % \end{macro}
 % \iffalse
 %</macro:common>\fi
 
+%%%%^^A lengthof.tex %%%%
 % \iffalse
 %<*macro:lengthof>\fi
 % \begin{macro}{lengthof.tex}
 %   Contains the code used to find out the length of a given string.
-% \end{macro}
-% \begin{macro}{\lengthof}Computes the length of the given string parameter.
+%   \begin{macro}{\lengthof}
+%     Computes the length of the given string parameter.
 %    \begin{macrocode}
 \input import \import{common}
 %
@@ -185,18 +190,19 @@
 %
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
+%   \end{macro}
 % \end{macro}
 % \iffalse
 %</macro:lengthof>\fi
 
+%%%%^^A checkeq.tex %%%%
 % \iffalse
 %<*macro:checkeq>\fi
 % \begin{macro}{checkeq.tex}
 %   Contains the code used to check if two given strings are equal.
-% \end{macro}
-% \begin{macro}{\checkeq}
-% Used to check if two given strings are equal.
-% Assume no space in the strings.
+%   \begin{macro}{\checkeq}
+%     Used to check if two given strings are equal.
+%     Assume no space in the strings.
 %    \begin{macrocode}
 \input import \import{lengthof}
 %
@@ -241,10 +247,12 @@
 %
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
+%   \end{macro}
 % \end{macro}
 % \iffalse
 %</macro:checkeq>\fi
 
+%%%%^^A assert.tex %%%%
 % \iffalse
 %<*macro:assert>\fi
 % \begin{macro}{assert.tex}
@@ -275,9 +283,8 @@
   \countassertionsfailed=0
 }
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\asserteq}
-%   Asserts that the two given string are equal, taking catcode into account.
+%   \begin{macro}{\asserteq}
+%     Asserts that the two given string are equal, taking catcode into account.
 %    \begin{macrocode}
 \def\asserteq#1=#2{{%
   \global\advance\countassertions by1
@@ -300,9 +307,9 @@
   \fi
 }}
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\asserteqnocat}
-%   Asserts that the two given string are equal, disregarding any catcode differences.
+%   \end{macro}
+%   \begin{macro}{\asserteqnocat}
+%     Asserts that the two given string are equal, disregarding any catcode differences.
 %    \begin{macrocode}
 \def\asserteqnocat#1=#2{{%
   \global\advance\countassertions by1
@@ -326,9 +333,9 @@
   \fi
 }}
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\assertneq}
-%   Asserts that the two given string are not equal, taking catcode into account.
+%   \end{macro}
+%   \begin{macro}{\assertneq}
+%     Asserts that the two given string are not equal, taking catcode into account.
 %    \begin{macrocode}
 \def\assertneq#1=#2{{%
   \global\advance\countassertions by1
@@ -351,10 +358,10 @@
   \fi
 }}
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\assertionsummary}
-%   Typesets a summary of the assertions made.
-%   Then reset to a state as if no assertion has been made.
+%   \end{macro}
+%   \begin{macro}{\assertionsummary}
+%     Typesets a summary of the assertions made.
+%     Then reset to a state as if no assertion has been made.
 %    \begin{macrocode}
 \def\assertionsummary{{%
   \def\sp{ }%
@@ -370,10 +377,12 @@
 %
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
+%   \end{macro}
 % \end{macro}
 % \iffalse
 %</macro:assert>\fi
 
+%%%%^^A texassert.sty %%%%
 % \iffalse
 %<*pkg>\fi
 % \begin{macro}{texassert.sty}Used for packaging purposes.
