@@ -99,11 +99,11 @@
 % Contains common code and configuration used in this library.
 %    \begin{macrocode}
 \showboxdepth=\maxdimen \showboxbreadth=\maxdimen
-%
+
 \newtoks\result \newtoks\tokstemp
 \newcount\n
 \newcount\integer
-%
+
 \def\true{\let\bool=\iftrue}
 \def\false{\let\bool=\iffalse}
 %    \end{macrocode}
@@ -124,7 +124,7 @@
 \newif\ifempty
 \def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
   \global\ifx\input\empty \emptytrue\else\emptyfalse\fi}}
-%
+
 % Assigning \iffalse to \then and use as a parameter delimiter is critical
 % in making the if-macros skippable.
 % Source: https://tug.org/TUGboat/tb45-1/tb139wermuth-isint.pdf
@@ -167,10 +167,10 @@
 %     Computes the length of the given string parameter.
 %    \begin{macrocode}
 \input import \import{common}
-%
+
 \newcount\length
 \edef\temp{\the\catcode`@}\catcode`@=11
-%
+
 \def\lengthof#1{\length=0
   \bgroup
     \edef\lengthof@input{#1}%
@@ -190,7 +190,7 @@
   \fi
   \next
 }
-%
+
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
 %   \end{macro}
@@ -207,10 +207,10 @@
 %     Assume no space in the strings.
 %    \begin{macrocode}
 \input import \import{lengthof}
-%
+
 \newif\ifeq
 \edef\temp{\the\catcode`@}\catcode`@=11
-%
+
 \global\eqtrue
 % Assume no spaces
 \def\checkeq#1#2{{%
@@ -246,7 +246,7 @@
   \fi
   \next
 }
-%
+
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
 %   \end{macro}
@@ -270,14 +270,14 @@
 \newcount\countassertionsfailed
 \newif\ifassertmessageonly
 \edef\temp{\the\catcode`@}\catcode`@=11
-%
+
 \let\assertDone=\iffalse
 \def\unexpected{\toks0={unexpected!}}
 \def\expected{\toks0={expected}}
 \def\assert{\asserteq\the\toks0={expected}}
 \def\assertTrue#1\assertDone{#1\then \expected \else \unexpected\fi \assert}
 \def\assertFalse#1\assertDone{#1\then \unexpected \else \expected\fi \assert}
-%
+
 \def\resetassertions{%
   \countassertions=0
   \countassertionspassed=0
@@ -375,7 +375,7 @@
     \medbreak
     \summary
   \fi}\resetassertions}
-%
+
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
 %   \end{macro}
