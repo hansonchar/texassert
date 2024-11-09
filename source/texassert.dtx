@@ -71,17 +71,11 @@
 %^^A \StopEventually is deprecated by \MaybeStop
 % \section{Implementation}
 
-% \iffalse<*macro:mymacro>\fi
-% \begin{macro}{\mymacro}
-% We define a trivial macro, |\mymacro|, to illustrate
-% the use of the |macro| environment.
-%    \begin{macrocode}
-\def\mymacro{Hello!}
-%    \end{macrocode}
+% \iffalse
+%<*macro:import>\fi
+% \begin{macro}{import.tex}
+% Contains |\import|.
 % \end{macro}
-% \iffalse</macro:mymacro>\fi
-
-% \iffalse<*macro:import>\fi
 % \begin{macro}{\import}
 % Used to prevent the same file from being |\input| more than once.
 %    \begin{macrocode}
@@ -94,26 +88,38 @@
 }
 %    \end{macrocode}
 % \end{macro}
-% \iffalse</macro:import>\fi
-
-% \DescribeMacro{\common}
 % \iffalse
-%<*macro:common>
-% \fi
+%</macro:import>\fi
+
+% \iffalse
+%<*macro:common>\fi
+% \begin{macro}{common.tex}
+% Contains common code and configuration used in this library.
 %    \begin{macrocode}
+\showboxdepth=\maxdimen \showboxbreadth=\maxdimen
+
 \newtoks\result \newtoks\tokstemp
 \newcount\n
 \newcount\integer
 
 \def\true{\let\bool=\iftrue}
 \def\false{\let\bool=\iffalse}
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\debug}
+% Writes a line of debug message immediately to the terminal and the log file
+% when debugging is enabled (via |\debugtrue| which is the default).
+%    \begin{macrocode}
 \newif\ifdebug
 \debugtrue
 \def\debug#1{\ifdebug \immediate\write16{[DEBUG] #1}\fi}
-
-\showboxdepth=\maxdimen \showboxbreadth=\maxdimen
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifEmpty}
+% Checks if the given parameter is empty.
+%    \begin{macrocode}
 \newif\ifempty
 \def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
   \global\ifx\input\empty \emptytrue\else\emptyfalse\fi}}
@@ -125,7 +131,12 @@
 \def\ifEmpty#1\then{%
   \checkifempty{#1}\ifempty
 }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifUndefined}
+% Checks if the given control sequence is undefined.
+%    \begin{macrocode}
 \long\def\ifUndefined#1\then{{%
   \edef\x{\meaning#1}%
   \let\e=\escapechar \escapechar=-1
@@ -133,14 +144,18 @@
   \def\true{\iftrue}\def\false{\iffalse}%
   \def\next{\expandafter\expandafter\expandafter
     \aftergroup\ifx\x\y\true\else\false\fi}\next}}
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifDefined}
+% Checks if the given control sequence is defined.
+%    \begin{macrocode}
 \long\def\not#1#2\then{#1#2\then \false \else \true \fi \bool}
-
 \long\def\ifDefined#1\then{\ifUndefined#1\then \false \else \true\fi \bool}
 %    \end{macrocode}
+% \end{macro}
 % \iffalse
-%</macro:common>
-% \fi
+%</macro:common>\fi
 
 % \DescribeMacro{\lengthof}
 % \iffalse
