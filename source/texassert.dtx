@@ -249,10 +249,10 @@
 % \iffalse
 %</macro:checkeq>\fi
 
-% \DescribeMacro{\assert}
 % \iffalse
-%<*macro:assert>
-% \fi
+%<*macro:assert>\fi
+% \begin{macro}{assert.tex}
+%   Contains the code used for assertion purposes.
 %    \begin{macrocode}
 \input import \import{checkeq}
 
@@ -265,13 +265,24 @@
 \newcount\countassertionsfailed
 \newif\ifassertmessageonly
 \edef\temp{\the\catcode`@}\catcode`@=11
-
+%
+\let\assertDone=\iffalse
+\def\unexpected{\toks0={unexpected!}}
+\def\expected{\toks0={expected}}
+\def\assert{\asserteq\the\toks0={expected}}
+\def\assertTrue#1\assertDone{#1\then \expected \else \unexpected\fi \assert}
+\def\assertFalse#1\assertDone{#1\then \unexpected \else \expected\fi \assert}
+%
 \def\resetassertions{%
   \countassertions=0
   \countassertionspassed=0
   \countassertionsfailed=0
 }
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\asserteq}
+%   Asserts that the two given string are equal, taking catcode into account.
+%    \begin{macrocode}
 \def\asserteq#1=#2{{%
   \global\advance\countassertions by1
   \edef\assert@a{#1}%
@@ -292,7 +303,11 @@
       \medbreak\fi
   \fi
 }}
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\asserteqnocat}
+%   Asserts that the two given string are equal, disregarding any catcode differences.
+%    \begin{macrocode}
 \def\asserteqnocat#1=#2{{%
   \global\advance\countassertions by1
   \edef\assert@a{#1}%
@@ -314,7 +329,11 @@
       \medbreak\fi
   \fi
 }}
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\assertneq}
+%   Asserts that the two given string are not equal, taking catcode into account.
+%    \begin{macrocode}
 \def\assertneq#1=#2{{%
   \global\advance\countassertions by1
   \edef\assert@a{#1}%
@@ -335,7 +354,12 @@
     \global\advance\countassertionspassed by1
   \fi
 }}
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\assertionsummary}
+%   Typesets a summary of the assertions made.
+%   Then reset to a state as if no assertion has been made.
+%    \begin{macrocode}
 \def\assertionsummary{{%
   \def\sp{ }%
   \def\summary{%
@@ -347,19 +371,12 @@
     \medbreak
     \summary
   \fi}\resetassertions}
-
-\let\assertDone=\iffalse
-\def\unexpected{\toks0={unexpected!}}
-\def\expected{\toks0={expected}}
-\def\assert{\asserteq\the\toks0={expected}}
-\def\assertTrue#1\assertDone{#1\then \expected \else \unexpected\fi \assert}
-\def\assertFalse#1\assertDone{#1\then \unexpected \else \expected\fi \assert}
-
+%
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
+% \end{macro}
 % \iffalse
-%</macro:assert>
-% \fi
+%</macro:assert>\fi
 
 % \DescribeMacro{texassert.sty}
 % \iffalse
