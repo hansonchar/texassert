@@ -2,7 +2,7 @@
 
 Assertion library for unit testing in plain TeX.
 
-The documentation of this library can be found in `texassert.pdf`, which
+The documentation of this library can be found in [texassert.pdf](texassert.pdf), which
 can be generated via `l3build doc`.
 
 ## Building
