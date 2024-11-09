@@ -111,8 +111,8 @@
 \def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
   \global\ifx\input\empty \emptytrue\else\emptyfalse\fi}}
 
-% Assigning \iffalse to \then and use as a parameter delimiter is critical in making the
-% if-macros skippable.
+% Assigning \iffalse to \then and use as a parameter delimiter is critical
+% in making the if-macros skippable.
 % Source: https://tug.org/TUGboat/tb45-1/tb139wermuth-isint.pdf
 \let\then=\iffalse
 \def\ifEmpty#1\then{%
@@ -196,7 +196,8 @@
         \def\expandafter\expandafter\expandafter
           \next\expandafter\expandafter\expandafter
             {\expandafter\expandafter\expandafter
-              \checkeqA\expandafter\checkeq@fstparam\expandafter\eot\checkeq@sndparam\eot}%
+              \checkeqA\expandafter\checkeq@fstparam
+                \expandafter\eot\checkeq@sndparam\eot}%
     \fi
   \else
     \global\eqfalse \let\next=\relax
@@ -256,7 +257,8 @@
   \else
     \global\advance\countassertionsfailed by1%
     \message{...}%
-    \def\errmsg{*** assertion (\the\countassertions) failure: `#1' not equal `#2' ***}%
+    \def\errmsg{*** assertion (\the\countassertions) failure:
+      `#1' not equal `#2' ***}%
     \message{\errmsg}%
     \ifassertmessageonly\else
       \medbreak
@@ -277,7 +279,8 @@
   \else
     \global\advance\countassertionsfailed by1
     \message{...}%
-    \def\errmsg{*** assertion (\the\countassertions) failure: `#1' not equal `#2' ***}%
+    \def\errmsg{*** assertion (\the\countassertions) failure:
+      `#1' not equal `#2' ***}%
     \message{\errmsg}%
     \ifassertmessageonly\else
       \medbreak
@@ -295,7 +298,8 @@
   \ifx\assert@a\assert@b\relax\relax
     \global\advance\countassertionsfailed by1%
       \message{...}%
-      \def\errmsg{*** assertion (\the\countassertions) failure: `#1' equal `#2' ***}%
+      \def\errmsg{*** assertion (\the\countassertions) failure:
+        `#1' equal `#2' ***}%
       \message{\errmsg}%
       \ifassertmessageonly\else
         \medbreak
@@ -309,7 +313,8 @@
 \def\assertionsummary{{%
   \def\sp{ }%
   \def\summary{%
-    Assertion Summary: \the\countassertionspassed/\the\countassertions\sp assertions passed i.e.
+    Assertion Summary: \the\countassertionspassed/\the\countassertions\sp
+      assertions passed i.e.
     \the\countassertionsfailed/\the\countassertions\sp assertions failed.}%
   \message{\summary}%
   \ifassertmessageonly\else
