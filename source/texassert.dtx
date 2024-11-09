@@ -26,6 +26,7 @@
 %^^A see the package’s \ProvidesPackage line and won’t know how to set
 %^^A \filedate and \fileversion.
 \usepackage{\jobname}
+\usepackage{hyperref}
 ^^A \OnlyDescription ^^A Nothing after the \MaybeStop will be output
 \EnableCrossrefs
 \CodelineIndex
@@ -66,6 +67,26 @@
 %
 % \section{Usage Examples}
 % TODO
+%
+% \section{Useful Resources}
+% Not so much related to the library provided by this package per se, but some commands and external resources which
+% I found directly useful or necesssary for the purpose of \textit{constructing} this package per se.
+%
+% \begin{enumerate}
+%   \item \href{https://github.com/latex3/l3build/tree/main/examples}{Examples} in the
+%         \href{https://github.com/latex3/l3build}{|l3build|} repository.
+%         The \href{https://github.com/latex3/l3build/tree/main/examples/Simple-Tree}{|simple-tree|} example
+%         \hfil\break in particular.
+%   \item |texdoc l3build| -- information directly related to |l3build|.
+%   \item |texdoc doc| -- the |doc| package used by |l3build| implicitly.
+%   \item |texdoc docstrip| -- the |docstrip| package used by |l3build| implicitly.
+%   \item |texdoc source2e| -- information related to various macros that are or can be used in a |.dtx| file.
+%   \item |texdoc dtxtut| -- Scott Pakin. \textit{How to Package Your \LaTeX\ Package.} January~21,~2024.
+%         (I had lots of \textit{Aha!} moments in reading this.)
+%   \item Michel Gossens, Frank Mittelbach, and Alexander Samarin.
+%         \textit{The \LaTeX\ Companion.}
+%         Addison Wesley, Reading, Massachusetts, October~1,~1994. ISBN~0-201-54199-8.
+% \end{enumerate}
 %
 %^^A The package’s source code is delineated by putting it between
 %^^A \MaybeStop and \Finale.
