@@ -73,9 +73,7 @@
 
 % \iffalse
 %<*macro:import>\fi
-% \begin{macro}{import.tex}
-% Contains |\import|.
-% \end{macro}
+% \begin{macro}{import.tex}Contains |\import|.\end{macro}
 % \begin{macro}{\import}
 % Used to prevent the same file from being |\input| more than once.
 %    \begin{macrocode}
@@ -90,18 +88,18 @@
 % \end{macro}
 % \iffalse
 %</macro:import>\fi
-
+%
 % \iffalse
 %<*macro:common>\fi
 % \begin{macro}{common.tex}
 % Contains common code and configuration used in this library.
 %    \begin{macrocode}
 \showboxdepth=\maxdimen \showboxbreadth=\maxdimen
-
+%
 \newtoks\result \newtoks\tokstemp
 \newcount\n
 \newcount\integer
-
+%
 \def\true{\let\bool=\iftrue}
 \def\false{\let\bool=\iffalse}
 %    \end{macrocode}
@@ -123,7 +121,7 @@
 \newif\ifempty
 \def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
   \global\ifx\input\empty \emptytrue\else\emptyfalse\fi}}
-
+%
 % Assigning \iffalse to \then and use as a parameter delimiter is critical
 % in making the if-macros skippable.
 % Source: https://tug.org/TUGboat/tb45-1/tb139wermuth-isint.pdf
@@ -157,16 +155,18 @@
 % \iffalse
 %</macro:common>\fi
 
-% \DescribeMacro{\lengthof}
 % \iffalse
-%<*macro:lengthof>
-% \fi
+%<*macro:lengthof>\fi
+% \begin{macro}{lengthof.tex}
+%   Contains the code used to find out the length of a given string.
+% \end{macro}
+% \begin{macro}{\lengthof}Computes the length of the given string parameter.
 %    \begin{macrocode}
 \input import \import{common}
-
+%
 \newcount\length
 \edef\temp{\the\catcode`@}\catcode`@=11
-
+%
 \def\lengthof#1{\length=0
   \bgroup
     \edef\lengthof@input{#1}%
@@ -186,12 +186,12 @@
   \fi
   \next
 }
-
+%
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
+% \end{macro}
 % \iffalse
-%</macro:lengthof>
-% \fi
+%</macro:lengthof>\fi
 
 % \DescribeMacro{\checkeq}
 % \iffalse
