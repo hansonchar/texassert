@@ -193,16 +193,20 @@
 % \iffalse
 %</macro:lengthof>\fi
 
-% \DescribeMacro{\checkeq}
 % \iffalse
-%<*macro:checkeq>
-% \fi
+%<*macro:checkeq>\fi
+% \begin{macro}{checkeq.tex}
+%   Contains the code used to check if two given strings are equal.
+% \end{macro}
+% \begin{macro}{\checkeq}
+% Used to check if two given strings are equal.
+% Assume no space in the strings.
 %    \begin{macrocode}
 \input import \import{lengthof}
-
+%
 \newif\ifeq
 \edef\temp{\the\catcode`@}\catcode`@=11
-
+%
 \global\eqtrue
 % Assume no spaces
 \def\checkeq#1#2{{%
@@ -238,12 +242,12 @@
   \fi
   \next
 }
-
+%
 \catcode`@=\temp % restore the original catcode for @
 %    \end{macrocode}
+% \end{macro}
 % \iffalse
-%</macro:checkeq>
-% \fi
+%</macro:checkeq>\fi
 
 % \DescribeMacro{\assert}
 % \iffalse
