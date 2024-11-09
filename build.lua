@@ -1,29 +1,16 @@
-#!/usr/bin/env texlua
-
--- luacheck:ignore 111 112 113
+-- luacheck:ignore 111
 module = "texassert"
 
--- TDS-based installation
--- installfiles = {}
--- sourcefiles = {}
--- installfiles = {"*.sty", "*.tex"}
--- unpackfiles = {}
+sourcefiledir = "source"
+-- docfiledir    = "doc"
+typesetfiles  = {"*.dtx"}
+-- typesetfiles  = {"*.tex"}
+packtdszip    = true -- recommended for "tree" layouts
 tdsdirs = {tex = "tex"}
--- flatten = true
+-- tdsroot = "generic"
 
--- packtdszip = true
--- recordstatus = true
-
--- ctanpkg = module
-typesetfiles  = {"*.tex"}
-
--- See https://github.com/latex3/l3build/discussions/390 on the issue of the broken
--- "typesetdir", and the work around using "docfiledir".
--- typesetdir = "doc"
-
-typesetexe = "pdftex"
-
--- docfiles = { "txassert-doc.tex" }
+installfiles = {"*.sty", "*.tex"}
+tdslocations = {"tex/plain/texassert/*.tex"}
 
 --[==================[
       VERSION DATA
@@ -59,12 +46,3 @@ uploadconfig = {
     repository = "https://github.com/hansonchar/texassert",
     bugtracker = "https://github.com/hansonchar/texassert/issues"
 }
-
--- local function prequire(m) -- from: https://stackoverflow.com/a/17878208
---     local ok, err = pcall(require, m)
---     if not ok then
---         return nil, err
---     end
---     return err
--- end
--- prequire("l3build-wspr.lua")

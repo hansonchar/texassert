@@ -1,0 +1,345 @@
+% \iffalse
+%
+% Copyright 2024 Hanson Char
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%
+%   <https://www.latex-project.org/lppl.txt>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{texassert.dtx}
+%</driver>
+%
+%<pkg>\ProvidesPackage{texassert}
+%<*pkg>
+  [2024/11/07 v0.0.2 texassert]
+%</pkg>
+%
+%<*driver>
+\documentclass{ltxdoc}
+%^^A You should always \usepackage your style file. If you don’t, Doc won’t
+%^^A see the package’s \ProvidesPackage line and won’t know how to set
+%^^A \filedate and \fileversion.
+\usepackage{\jobname}
+^^A \OnlyDescription ^^A Nothing after the \MaybeStop will be output
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\SetupDoc{reportchangedates}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \changes{v0.0.1}{2024-11-05}{Initial version}
+% \changes{v0.0.2}{2024-11-07}{Migrate~source~files to~\texttt{\jobname.dtx}}
+%^^A The \fileversion and \filedate comes from the \ProvidesPakage above.
+% \GetFileInfo{\jobname.dtx}
+% \title{The \textsf{\jobname} package\thanks{This document
+%   corresponds to \textsf{\jobname}~\fileversion,
+%   dated~\filedate.}}
+% \author{Hanson Char \\  \texttt{hanson.char@gmail.com}}
+% \maketitle
+%
+% \begin{abstract}
+% An assertion library for unit testing in plain TeX.
+% \end{abstract}
+%
+%^^A \tableofcontents
+%
+% \section{Introduction}
+%
+% Here source files are located in source/ and plain tex files are located
+% in tex/plain/texassert.
+%
+% \section{Summary of macros}
+% \bgroup\parindent=0pt
+% \DescribeMacro{\assert} Bla bla about \texttt{\string\assert}
+%
+% \DescribeMacro{\asserteq} Bla bla about \texttt{\string\asserteq}
+% \egroup
+%
+%^^A The package’s source code is delineated by putting it between
+%^^A \MaybeStop and \Finale.
+% \MaybeStop{\PrintChanges}
+%^^A \StopEventually is deprecated by \MaybeStop
+% \section{Implementation}
+
+% \DescribeMacro{\import}
+% \iffalse
+%<*macro:import>
+% \fi
+%    \begin{macrocode}
+% Used to prevent the same file from being \input more than once
+\def\import#1{%
+  \expandafter\ifx\csname import:#1\endcsname\relax
+    \input #1
+    \expandafter\gdef\csname import:#1\endcsname{}%
+    % Imported #1\par
+  \fi
+}
+%    \end{macrocode}
+% \iffalse
+%</macro:import>
+% \fi
+
+% \DescribeMacro{\common}
+% \iffalse
+%<*macro:common>
+% \fi
+%    \begin{macrocode}
+\newtoks\result \newtoks\tokstemp
+\newcount\n
+\newcount\integer
+
+\def\true{\let\bool=\iftrue}
+\def\false{\let\bool=\iffalse}
+
+\newif\ifdebug
+\debugtrue
+\def\debug#1{\ifdebug \immediate\write16{[DEBUG] #1}\fi}
+
+\showboxdepth=\maxdimen \showboxbreadth=\maxdimen
+
+\newif\ifempty
+\def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
+  \global\ifx\input\empty \emptytrue\else\emptyfalse\fi}}
+
+% Assigning \iffalse to \then and use as a parameter delimiter is critical in making the
+% if-macros skippable.
+% Source: https://tug.org/TUGboat/tb45-1/tb139wermuth-isint.pdf
+\let\then=\iffalse
+\def\ifEmpty#1\then{%
+  \checkifempty{#1}\ifempty
+}
+
+\long\def\ifUndefined#1\then{{%
+  \edef\x{\meaning#1}%
+  \let\e=\escapechar \escapechar=-1
+  \edef\y{\string\undefined}\escapechar=\e
+  \def\true{\iftrue}\def\false{\iffalse}%
+  \def\next{\expandafter\expandafter\expandafter
+    \aftergroup\ifx\x\y\true\else\false\fi}\next}}
+
+\long\def\not#1#2\then{#1#2\then \false \else \true \fi \bool}
+
+\long\def\ifDefined#1\then{\ifUndefined#1\then \false \else \true\fi \bool}
+%    \end{macrocode}
+% \iffalse
+%</macro:common>
+% \fi
+
+% \DescribeMacro{\lengthof}
+% \iffalse
+%<*macro:lengthof>
+% \fi
+%    \begin{macrocode}
+\input import \import{common}
+
+\newcount\length
+\edef\temp{\the\catcode`@}\catcode`@=11
+
+\def\lengthof#1{\length=0
+  \bgroup
+    \edef\lengthof@input{#1}%
+    \ifEmpty\lengthof@input\then
+      \let\next=\relax
+    \else
+      \def\next{\expandafter\lengthofA\lengthof@input\eot}%
+    \fi
+    \next
+  \egroup
+}
+\def\lengthofA#1#2\eot{\global\advance\length by1
+  \ifEmpty#2\then
+    \let\next=\relax
+  \else
+    \def\next{\lengthofA#2\eot}%
+  \fi
+  \next
+}
+
+\catcode`@=\temp % restore the original catcode for @
+%    \end{macrocode}
+% \iffalse
+%</macro:lengthof>
+% \fi
+
+% \DescribeMacro{\checkeq}
+% \iffalse
+%<*macro:checkeq>
+% \fi
+%    \begin{macrocode}
+\input import \import{lengthof}
+
+\newif\ifeq
+\edef\temp{\the\catcode`@}\catcode`@=11
+
+\global\eqtrue
+% Assume no spaces
+\def\checkeq#1#2{{%
+  \edef\checkeq@fstparam{#1}%
+  \edef\checkeq@sndparam{#2}%
+  \lengthof\checkeq@fstparam \edef\lena{\number\length}%
+  \lengthof\checkeq@sndparam \edef\lenb{\number\length}%
+  \ifx\lena\lenb
+    \ifnum\length=0
+      \global\eqtrue \let\next=\relax
+    \else
+      \expandafter\expandafter\expandafter
+        \def\expandafter\expandafter\expandafter
+          \next\expandafter\expandafter\expandafter
+            {\expandafter\expandafter\expandafter
+              \checkeqA\expandafter\checkeq@fstparam\expandafter\eot\checkeq@sndparam\eot}%
+    \fi
+  \else
+    \global\eqfalse \let\next=\relax
+  \fi
+  \next
+}}
+\def\checkeqA#1#2\eot#3#4\eot{%
+  \if#1#3{}% the trailing `{}%' is necessary to avoid adding extra spaces
+    \ifx\relax#2\relax
+      \global\eqtrue \let\next=\relax
+    \else
+      \def\next{\checkeqA#2\eot#4\eot}%
+    \fi
+  \else
+    \global\eqfalse \let\next=\relax
+  \fi
+  \next
+}
+
+\catcode`@=\temp % restore the original catcode for @
+%    \end{macrocode}
+% \iffalse
+%</macro:checkeq>
+% \fi
+
+% \DescribeMacro{\assert}
+% \iffalse
+%<*macro:assert>
+% \fi
+%    \begin{macrocode}
+\input import \import{checkeq}
+
+\ifDefined\ProvidesPackage\then
+  \ProvidesPackage{texassert}
+\fi
+
+\newcount\countassertions
+\newcount\countassertionspassed
+\newcount\countassertionsfailed
+\newif\ifassertmessageonly
+\edef\temp{\the\catcode`@}\catcode`@=11
+
+\def\resetassertions{%
+  \countassertions=0
+  \countassertionspassed=0
+  \countassertionsfailed=0
+}
+
+\def\asserteq#1=#2{{%
+  \global\advance\countassertions by1
+  \edef\assert@a{#1}%
+  % \message{assert@a: [\meaning\assert@a]}%
+  \edef\assert@b{#2}%
+  % \message{assert@b: [\meaning\assert@b]}%
+  \ifx\assert@a\assert@b\relax\relax
+    \global\advance\countassertionspassed by1
+  \else
+    \global\advance\countassertionsfailed by1%
+    \message{...}%
+    \def\errmsg{*** assertion (\the\countassertions) failure: `#1' not equal `#2' ***}%
+    \message{\errmsg}%
+    \ifassertmessageonly\else
+      \medbreak
+      \indent\indent{\errmsg}%
+      \medbreak\fi
+  \fi
+}}
+
+\def\asserteqnocat#1=#2{{%
+  \global\advance\countassertions by1
+  \edef\assert@a{#1}%
+  % \message{assert@a: [\meaning\assert@a]}%
+  \edef\assert@b{#2}%
+  % \message{assert@b: [\meaning\assert@b]}%
+  \checkeq\assert@a\assert@b
+  \ifeq
+    \global\advance\countassertionspassed by1
+  \else
+    \global\advance\countassertionsfailed by1
+    \message{...}%
+    \def\errmsg{*** assertion (\the\countassertions) failure: `#1' not equal `#2' ***}%
+    \message{\errmsg}%
+    \ifassertmessageonly\else
+      \medbreak
+      \indent\indent{\errmsg}%
+      \medbreak\fi
+  \fi
+}}
+
+\def\assertneq#1=#2{{%
+  \global\advance\countassertions by1
+  \edef\assert@a{#1}%
+  % \message{assert@a: [\meaning\assert@a]}%
+  \edef\assert@b{#2}%
+  % \message{assert@b: [\meaning\assert@b]}%
+  \ifx\assert@a\assert@b\relax\relax
+    \global\advance\countassertionsfailed by1%
+      \message{...}%
+      \def\errmsg{*** assertion (\the\countassertions) failure: `#1' equal `#2' ***}%
+      \message{\errmsg}%
+      \ifassertmessageonly\else
+        \medbreak
+        \indent\indent{\errmsg}%
+        \medbreak\fi
+  \else
+    \global\advance\countassertionspassed by1
+  \fi
+}}
+
+\def\assertionsummary{{%
+  \def\sp{ }%
+  \def\summary{%
+    Assertion Summary: \the\countassertionspassed/\the\countassertions\sp assertions passed i.e.
+    \the\countassertionsfailed/\the\countassertions\sp assertions failed.}%
+  \message{\summary}%
+  \ifassertmessageonly\else
+    \medbreak
+    \summary
+  \fi}\resetassertions}
+
+\let\assertDone=\iffalse
+\def\unexpected{\toks0={unexpected!}}
+\def\expected{\toks0={expected}}
+\def\assert{\asserteq\the\toks0={expected}}
+\def\assertTrue#1\assertDone{#1\then \expected \else \unexpected\fi \assert}
+\def\assertFalse#1\assertDone{#1\then \unexpected \else \expected\fi \assert}
+
+\catcode`@=\temp % restore the original catcode for @
+%    \end{macrocode}
+% \iffalse
+%</macro:assert>
+% \fi
+
+% \DescribeMacro{texassert.sty}
+% \iffalse
+%<*pkg>
+% \fi
+%    \begin{macrocode}
+\input{assert}
+%    \end{macrocode}
+% \iffalse
+%</pkg>
+% \fi
+%
+% \Finale
+

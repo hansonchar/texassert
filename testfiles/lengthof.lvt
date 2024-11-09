@@ -12,7 +12,7 @@
 \documentclass{minimal}
 \input{texassert-regression-test}
 
-\RequirePackage{txassert}
+\RequirePackage{texassert}
 \begin{document}
 \START
 \SEPARATOR
