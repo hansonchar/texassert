@@ -71,12 +71,20 @@
 %^^A \StopEventually is deprecated by \MaybeStop
 % \section{Implementation}
 
-% \DescribeMacro{\import}
-% \iffalse
-%<*macro:import>
-% \fi
+% \iffalse<*macro:mymacro>\fi
+% \begin{macro}{\mymacro}
+% We define a trivial macro, |\mymacro|, to illustrate
+% the use of the |macro| environment.
 %    \begin{macrocode}
-% Used to prevent the same file from being \input more than once
+\def\mymacro{Hello!}
+%    \end{macrocode}
+% \end{macro}
+% \iffalse</macro:mymacro>\fi
+
+% \iffalse<*macro:import>\fi
+% \begin{macro}{\import}
+% Used to prevent the same file from being |\input| more than once.
+%    \begin{macrocode}
 \def\import#1{%
   \expandafter\ifx\csname import:#1\endcsname\relax
     \input #1
@@ -85,9 +93,8 @@
   \fi
 }
 %    \end{macrocode}
-% \iffalse
-%</macro:import>
-% \fi
+% \end{macro}
+% \iffalse</macro:import>\fi
 
 % \DescribeMacro{\common}
 % \iffalse
