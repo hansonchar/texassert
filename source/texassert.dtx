@@ -26,7 +26,6 @@
 %^^A see the package’s \ProvidesPackage line and won’t know how to set
 %^^A \filedate and \fileversion.
 \usepackage{\jobname}
-\usepackage{hyperref}
 ^^A \OnlyDescription ^^A Nothing after the \MaybeStop will be output
 \EnableCrossrefs
 \CodelineIndex
@@ -177,8 +176,8 @@
 \def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
   \global\ifx\input\empty \emptytrue\else\emptyfalse\fi}}
 
-% Assigning \iffalse to \then and use as a parameter delimiter is critical
-% in making the if-macros skippable.
+% Assigning \iffalse to \then and use as a parameter delimiter
+% is critical in making the if-macros skippable.
 % Source: https://tug.org/TUGboat/tb45-1/tb139wermuth-isint.pdf
 \let\then=\iffalse
 \def\ifEmpty#1\then{%
@@ -204,7 +203,8 @@
 %     Checks if the given control sequence is defined.
 %    \begin{macrocode}
 \long\def\not#1#2\then{#1#2\then \false \else \true \fi \bool}
-\long\def\ifDefined#1\then{\ifUndefined#1\then \false \else \true\fi \bool}
+\long\def\ifDefined#1\then{\ifUndefined#1\then
+  \false \else \true\fi \bool}
 %    \end{macrocode}
 %   \end{macro}
 % \end{macro}
@@ -287,8 +287,8 @@
   \next
 }}
 \def\checkeqA#1#2\eot#3#4\eot{%
-  \if#1#3{}% the trailing `{}%' is necessary to avoid adding extra spaces
-    \ifx\relax#2\relax
+  \if#1#3{}% the trailing `{}%' is necessary to avoid
+    \ifx\relax#2\relax % extra spaces
       \global\eqtrue \let\next=\relax
     \else
       \def\next{\checkeqA#2\eot#4\eot}%
@@ -327,8 +327,10 @@
 \def\unexpected{\toks0={unexpected!}}
 \def\expected{\toks0={expected}}
 \def\assert{\asserteq\the\toks0={expected}}
-\def\assertTrue#1\assertDone{#1\then \expected \else \unexpected\fi \assert}
-\def\assertFalse#1\assertDone{#1\then \unexpected \else \expected\fi \assert}
+\def\assertTrue#1\assertDone{#1\then \expected
+  \else \unexpected\fi \assert}
+\def\assertFalse#1\assertDone{#1\then \unexpected
+  \else \expected\fi \assert}
 
 \def\resetassertions{%
   \countassertions=0
@@ -419,9 +421,11 @@
 \def\assertionsummary{{%
   \def\sp{ }%
   \def\summary{%
-    Assertion Summary: \the\countassertionspassed/\the\countassertions\sp
+    Assertion Summary:
+      \the\countassertionspassed/\the\countassertions\sp
       assertions passed i.e.
-    \the\countassertionsfailed/\the\countassertions\sp assertions failed.}%
+    \the\countassertionsfailed/\the\countassertions\sp
+      assertions failed.}%
   \message{\summary}%
   \ifassertmessageonly\else
     \medbreak
