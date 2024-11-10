@@ -19,12 +19,12 @@
 \TYPE{Testing \string\lengthof}
 \SEPARATOR
 
-\PTEST \lengthof{}\the\length        \asserteq\the\length=0 \TSETP
-\PTEST \lengthof{0}\the\length       \asserteq\the\length=1 \TSETP
-\PTEST \lengthof{12}\the\length      \asserteq\the\length=2 \TSETP
-\PTEST \lengthof{12.}\the\length     \asserteq\the\length=3 \TSETP
-\PTEST \lengthof{12.345}\the\length  \asserteq\the\length=6 \TSETP
-\PTEST \lengthof{12.3456}\the\length \asserteq\the\length=7 \TSETP
+\PTEST \lengthof{}        \asserteq\the\length=0 \TSETP
+\PTEST \lengthof{0}       \asserteq\the\length=1 \TSETP
+\PTEST \lengthof{12}      \asserteq\the\length=2 \TSETP
+\PTEST \lengthof{12.}     \asserteq\the\length=3 \TSETP
+\PTEST \lengthof{12.345}  \asserteq\the\length=6 \TSETP
+\PTEST \lengthof{12.3456} \asserteq\the\length=7 \TSETP
 
 \assertionsummary
 
