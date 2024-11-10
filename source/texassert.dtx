@@ -234,7 +234,7 @@
     \next
   \egroup
 }
-\def\lengthofA#1#2\eot{\global\advance\length by1 %
+\def\lengthofA#1#2\eot{\global\advance\length by1
   \ifEmpty#2\then
     \let\next=\relax
   \else
@@ -350,7 +350,7 @@
   \ifx\assert@a\assert@b\relax\relax
     \global\advance\countassertionspassed by1
   \else
-    \global\advance\countassertionsfailed by1%
+    \global\advance\countassertionsfailed by1
     \message{...}%
     \def\errmsg{*** assertion (\the\countassertions) failure:
       `#1' not equal `#2' ***}%
@@ -399,7 +399,7 @@
   \edef\assert@b{#2}%
   % \message{assert@b: [\meaning\assert@b]}%
   \ifx\assert@a\assert@b\relax\relax
-    \global\advance\countassertionsfailed by1%
+    \global\advance\countassertionsfailed by1
       \message{...}%
       \def\errmsg{*** assertion (\the\countassertions) failure:
         `#1' equal `#2' ***}%
