@@ -32,8 +32,8 @@
 \SEPARATOR
 \PTEST \assertFalse\ifEmpty\relax\assertDone \TSETP
 \PTEST \assertFalse\ifEmpty\c\assertDone \TSETP
-\def\foo{\ifempty}\PTEST \assertFalse\ifEmpty\foo\assertDone \TSETP
-\def\xyz{\xyz}\PTEST \assertFalse\ifEmpty\xyz\assertDone \TSETP
+\PTEST \def\foo{\ifempty} \assertFalse\ifEmpty\foo\assertDone \TSETP
+\PTEST \def\xyz{\xyz} \assertFalse\ifEmpty\xyz\assertDone \TSETP
 
 \assertionsummary
 
