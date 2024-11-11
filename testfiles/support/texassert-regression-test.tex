@@ -14,7 +14,7 @@
 
 % Used for a single positive test that involves an assertion.
 % #1 the positive test case that involves an assertion.
-\def\PTEST#1\TSETP{%
+\long\def\PTEST#1\TSETP{%
   \edef\before{\number\countassertionspassed}
   #1
   \ifnum\countassertionspassed>\before \TYPE{PASSED}\else \TYPE{FAILED}\fi
@@ -22,7 +22,7 @@
 
 % Used for a single negative test that involves an assertion.
 % #1 the negative test case that involves an assertion.
-\def\NTEST#1\TSETN{%
+\long\def\NTEST#1\TSETN{%
   \edef\before{\number\countassertionsfailed}
   #1
   \ifnum\countassertionsfailed>\before \TYPE{PASSED}\else \TYPE{FAILED}\fi
