@@ -37,4 +37,38 @@
 
 \assertionsummary
 
+\SEPARATOR
+\TYPE{Testing \string\ifUndefined}
+\SEPARATOR
+\PTEST \assertTrue\ifUndefined\NotYetDefined\assertDone \TSETP
+\PTEST \assertFalse\ifUndefined{\relax}\assertDone \TSETP
+\PTEST \ifUndefined\par\then \unexpected\else \expected\fi\assert \TSETP
+\PTEST \assertFalse\ifUndefined\ifUndefined\assertDone \TSETP
+\PTEST \assertTrue\ifUndefined\ifundefined\assertDone \TSETP
+\PTEST \assertFalse\ifUndefined\relax\assertDone \TSETP
+\PTEST \assertTrue\ifUndefined\x\assertDone \TSETP
+\PTEST \assertTrue\ifUndefined\y\assertDone \TSETP
+
+\assertionsummary
+
+\SEPARATOR
+\TYPE{Testing \string\ifDefined}
+\SEPARATOR
+\PTEST \assertFalse\ifDefined\NotYetDefined\assertDone \TSETP
+\PTEST \assertTrue\ifDefined\relax\assertDone \TSETP
+\PTEST \ifDefined\par\then \expected \else \unexpected\fi\assert \TSETP
+\PTEST \assertTrue\ifDefined\ifDefined\assertDone \TSETP
+% \ifdefined is a primitive in latex engines even though it's undefined in plain TeX.
+\PTEST \assertTrue\ifDefined\ifdefined\assertDone \TSETP
+
+\assertionsummary
+
+\SEPARATOR
+\TYPE{Testing \string\not}
+\SEPARATOR
+\PTEST \not\ifUndefined\NotYetDefined\then \unexpected\else \expected\fi\assert \TSETP
+\PTEST \not\ifDefined\NotYetDefined\then \expected\else \unexpected\fi\assert \TSETP
+
+\assertionsummary
+
 \END

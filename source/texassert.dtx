@@ -131,8 +131,8 @@
 %<*macro:import>\fi
 % \begin{macro}{import.tex}
 %   Contains |\import|.
-%   \begin{macro}{\import}
-% Used to prevent the same file from being |\input| more than once.
+%   \begin{macro}{\import}\marg{filename}.
+%     Used to prevent the same file from being |\input| more than once.
 %    \begin{macrocode}
 \def\import#1{%
   \expandafter\ifx\csname import:#1\endcsname\relax
@@ -162,7 +162,7 @@
 \def\false{\let\bool=\iffalse}
 %    \end{macrocode}
 %
-%   \begin{macro}{\debug}
+%   \begin{macro}{\debug}\marg{message}.
 %     Writes a line of debug message immediately to the terminal and the log file
 %     when debugging is enabled (via |\debugtrue| which is the default).
 %    \begin{macrocode}
@@ -172,8 +172,9 @@
 %    \end{macrocode}
 %   \end{macro}
 %
-%   \begin{macro}{\ifEmpty}
-%     Checks if the given parameter is empty.
+%   \begin{macro}{\ifEmpty}\oarg{parameter}|\then|.
+%     Checks if the given parameter delimited by |\then|, when fully expanded, is empty.
+%     No parameter is treated as empty.
 %    \begin{macrocode}
 \newif\ifempty
 \def\checkifempty#1{{\expandafter\def\expandafter\input\expandafter{#1}%
@@ -189,8 +190,8 @@
 %    \end{macrocode}
 %   \end{macro}
 %
-%   \begin{macro}{\ifUndefined}
-%     Checks if the given control sequence is undefined.
+%   \begin{macro}{\ifUndefined}\marg{cs token}|\then|.
+%     Checks if the given control sequence delimited by |\then| is undefined.
 %    \begin{macrocode}
 \long\def\ifUndefined#1\then{{%
   \edef\x{\meaning#1}%
@@ -392,7 +393,7 @@
 }}
 %    \end{macrocode}
 %   \end{macro}
-%   \begin{macro}{\assertneq}
+%   \begin{macro}{\assertneq}\marg{string}=\marg{string}.
 %     Asserts that the two given string are not equal, taking catcode into account.
 %    \begin{macrocode}
 \def\assertneq#1=#2{{%
