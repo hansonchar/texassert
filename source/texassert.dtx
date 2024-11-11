@@ -224,7 +224,7 @@
 \input import \import{common}
 
 \newcount\length
-\edef\temp{\the\catcode`@}\catcode`@=11
+\chardef\temp=\catcode`@\catcode`@=11
 
 \def\lengthof#1{\length=0 %
   \bgroup
@@ -264,7 +264,7 @@
 \input import \import{lengthof}
 
 \newif\ifeq
-\edef\temp{\the\catcode`@}\catcode`@=11
+\chardef\temp=\catcode`@\catcode`@=11
 
 \global\eqtrue
 % Assume no spaces
@@ -324,7 +324,7 @@
 \newcount\countassertionspassed
 \newcount\countassertionsfailed
 \newif\ifassertmessageonly
-\edef\temp{\the\catcode`@}\catcode`@=11
+\chardef\temp=\catcode`@\catcode`@=11
 
 \let\assertDone=\iffalse
 \def\unexpected{\toks0={unexpected!}}
