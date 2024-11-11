@@ -203,8 +203,8 @@
 %    \end{macrocode}
 %   \end{macro}
 %
-%   \begin{macro}{\ifDefined}
-%     Checks if the given control sequence is defined.
+%   \begin{macro}{\ifDefined}\marg{cs token}|\then|.
+%     Checks if the given control sequence delimited by |\then| is defined.
 %    \begin{macrocode}
 \long\def\not#1#2\then{#1#2\then \false \else \true \fi \bool}
 \long\def\ifDefined#1\then{\ifUndefined#1\then
@@ -219,8 +219,8 @@
 %<*macro:lengthof>\fi
 % \begin{macro}{lengthof.tex}
 %   Contains the code used to find out the length of a given string.
-%   \begin{macro}{\lengthof}
-%     Computes the length of the given string parameter.
+%   \begin{macro}{\lengthof}\marg{string}
+%     Computes the length of the given string parameter when fully expanded.
 %    \begin{macrocode}
 \input import \import{common}
 
@@ -258,9 +258,9 @@
 %<*macro:checkeq>\fi
 % \begin{macro}{checkeq.tex}
 %   Contains the code used to check if two given strings are equal.
-%   \begin{macro}{\checkeq}
-%     Used to check if two given strings are equal.
-%     Assume no space in the strings.
+%   \begin{macro}{\checkeq}\marg{string}\marg{string}.
+%     Used to check if two given string parameters, when fully expanded,
+%     are equal. Assume no space in the strings.
 %    \begin{macrocode}
 \input import \import{lengthof}
 
@@ -342,8 +342,10 @@
   \countassertionsfailed=0
 }
 %    \end{macrocode}
-%   \begin{macro}{\asserteq}
-%     Asserts that the two given string are equal, taking catcode into account.
+%   \begin{macro}{\asserteq}\oarg{string}=\marg{string}
+%     Asserts that the two given strings, when fully expanded,
+%     are equal, taking catcode into account.
+%     The first string, if not specified, is treated as an empty string.
 %    \begin{macrocode}
 \def\asserteq#1=#2{{%
   \global\advance\countassertions by1
@@ -367,8 +369,10 @@
 }}
 %    \end{macrocode}
 %   \end{macro}
-%   \begin{macro}{\asserteqnocat}
-%     Asserts that the two given string are equal, disregarding any catcode differences.
+%   \begin{macro}{\asserteqnocat}\oarg{string}=\marg{string}
+%     Asserts that the two given strings, when fully expanded,
+%     are equal, disregarding any catcode differences.
+%     The first string, if not specified, is treated as an empty string.
 %    \begin{macrocode}
 \def\asserteqnocat#1=#2{{%
   \global\advance\countassertions by1
@@ -393,8 +397,10 @@
 }}
 %    \end{macrocode}
 %   \end{macro}
-%   \begin{macro}{\assertneq}\marg{string}=\marg{string}.
-%     Asserts that the two given string are not equal, taking catcode into account.
+%   \begin{macro}{\assertneq}\oarg{string}=\marg{string}.
+%     Asserts that the two given strings, when fully expanded, are not equal,
+%     taking catcode into account.
+%     The first string, if not specified, is treated as an empty string.
 %    \begin{macrocode}
 \def\assertneq#1=#2{{%
   \global\advance\countassertions by1
@@ -419,8 +425,8 @@
 %    \end{macrocode}
 %   \end{macro}
 %   \begin{macro}{\assertionsummary}
-%     Typesets a summary of the assertions made.
-%     Then reset to a state as if no assertion has been made.
+%     Typesets a summary of the assertions made,
+%     then resets to a state as if no assertion has been made.
 %    \begin{macrocode}
 \def\assertionsummary{{%
   \def\sp{ }%

@@ -9,7 +9,8 @@ PASSED
 PASSED
 PASSED
 PASSED
-Assertion Summary: 6/6 assertions passed i.e. 0/6 assertions failed.
+PASSED
+Assertion Summary: 7/7 assertions passed i.e. 0/7 assertions failed.
 ============================================================
 Negative Testing \asserteq
 ============================================================
@@ -23,10 +24,12 @@ Assertion Summary: 0/3 assertions passed i.e. 3/3 assertions failed.
 ============================================================
 Positive Testing \asserteqnocat
 ============================================================
+\dima=\dimen...
 PASSED
 PASSED
 PASSED
-Assertion Summary: 3/3 assertions passed i.e. 0/3 assertions failed.
+PASSED
+Assertion Summary: 4/4 assertions passed i.e. 0/4 assertions failed.
 ============================================================
 Negative Testing \asserteqnocat
 ============================================================

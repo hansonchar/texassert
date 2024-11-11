@@ -19,6 +19,7 @@
 \SEPARATOR
 \TYPE{Positive Testing \string\asserteq}
 \SEPARATOR
+\PTEST \asserteq={} \TSETP
 \PTEST \asserteq1=1 \TSETP
 \PTEST \asserteq{1}={1}\TSETP
 \PTEST \asserteq11={11}\TSETP
@@ -38,10 +39,11 @@
 \SEPARATOR
 \TYPE{Positive Testing \string\asserteqnocat}
 \SEPARATOR
-\OMIT \newdimen\dima \TIMO
+\newdimen\dima
 \PTEST \dima=0.0pt \asserteqnocat\the\dima={0.0pt}\TSETP
 \PTEST \dima=0pt \asserteqnocat\the\dima={0.0pt}\TSETP
 \PTEST \asserteqnocat{1x3}={1x3}\TSETP
+\PTEST \asserteqnocat={} \TSETP
 \assertionsummary
 
 \SEPARATOR
