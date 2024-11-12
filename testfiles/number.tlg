@@ -1,0 +1,12 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+Testing number scanning
+============================================================
+Notice how \count2 gets absorbed to become the number of the first count!
+PASSED
+Several ways to get around the issue.
+PASSED
+PASSED
+PASSED
+Assertion Summary: 4/4 assertions passed i.e. 0/4 assertions failed.

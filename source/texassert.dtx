@@ -47,6 +47,8 @@
 % \author{Hanson Char \\  \texttt{hanson.char@gmail.com}}
 % \maketitle
 %
+% \def\br{\hfil\break}
+%
 % \begin{abstract}
 % An assertion library for unit testing in plain TeX.
 % \end{abstract}
@@ -71,32 +73,71 @@
 %
 % \subsection{Length Assertions}
 % To unit test the |\lengthof| macro in this library, for example, we can
-%   create a file |length-tests.tex| with something like:\par
+% create a file |length-tests.tex| with:\par
 %
 % \medskip\noindent
-% |    % Import the necessary macros|\hfil\break
+% |    % Import the necessary macros|\br
 % |    \input import \import{lengthof} \import{assert}|\par
 % \medskip\noindent
-% |    % Length of an empty string is zero|\hfil\break
+% |    % Length of an empty string is zero|\br
 % |    \lengthof{} \asserteq\the\length=0|\par
 % \medskip\noindent
-% |    % Length of `0' is one|\hfil\break
+% |    % Length of `0' is one|\br
 % |    \lengthof{0} \asserteq\the\length=1|\par
 % \medskip\noindent
-% |    % Length of `12.3456' is seven|\hfil\break
+% |    % Length of `12.3456' is seven|\br
 % |    \lengthof{12.3456} \asserteq\the\length=7|\par
 % \medskip\noindent
-% |    % Summary of the assertions made so far|\hfil\break
-% |    \assertionsummary|\hfil\break
+% |    % Summary of the assertions made so far|\br
+% |    \assertionsummary|\br
 % |    \bye|\par
 % \medskip
 % \noindent Compile it with a \TeX\ engine, e.g. |pdftex length-tests.tex|,
-% we get an output file |length-tests.pdf| with something like:\par
+% we get an output file |length-tests.pdf| with:\par
 % \medbreak
 % Assertion Summary: 3/3 assertions passed i.e. 0/3 assertions failed.
 %
-% \subsection{(More Examples ...)}
-% TODO
+% \subsection{Number scanning}
+% The following demonstrates how \TeX\ scans and expands the input tokens when
+% a number is encountered. First, create a file e.g. |number-scanning.tex| with:\par
+% \medskip\noindent
+% |    % Import the necessary macros|\br
+% |    \input import \import{assert}|\par
+% \medskip\noindent
+% |    \count1=1|\br
+% |    \count2=2|\br
+% |    \count12=912|\par
+% \medskip\noindent
+% |    % Notice how \string\count2 gets absorbed to become|\br
+% |    % the number of the first count!|\br
+% |    \count3=\count1\the\count2|\br
+% |    \asserteq\the\count3={912}|\par
+% \medskip\noindent
+% |    % Several ways to get around the issue.|\br
+% |    \count3=\count1 \the\count2|\br
+% |    \asserteq\the\count3=1|\par
+% \medskip\noindent
+% |    \count3=\count1\relax\the\count2|\br
+% |    \asserteq\the\count3=1|\par
+% \medskip\noindent
+% |    \count3=\count1{}\the\count2|\br
+% |    \asserteq\the\count3=1|\par
+% \medskip\noindent
+% |    % Summary of the assertions made so far|\br
+% |    \assertionsummary|\br
+% |    \bye|\par
+% \medskip
+% \noindent Compile it with a \TeX\ engine, e.g. |pdftex number-scanning.tex|,
+% we get an output file |number-scanning.pdf| with:\par
+% \medbreak
+% 2 2 2\par
+% Assertion Summary: 4/4 assertions passed i.e. 0/4 assertions failed.
+%
+% \subsection{More Examples}
+% Many more examples can be found and easily extracted from the |*.lvt| files of the
+% \href{https://github.com/hansonchar/texassert/tree/main/testfiles}{regresssion test suite}.
+% I encourage the motivated readers to take a look.  Go check out the repository and run them via
+% |l3build check|!
 %
 % \section{Source Repository}
 % \href{https://github.com/hansonchar/texassert}{\texttt{https://github.com/hansonchar/texassert}}
@@ -109,7 +150,7 @@
 %   \item \href{https://github.com/latex3/l3build/tree/main/examples}{Examples} in the
 %         \href{https://github.com/latex3/l3build}{|l3build|} repository.
 %         The \href{https://github.com/latex3/l3build/tree/main/examples/Simple-Tree}{|simple-tree|} example
-%         \hfil\break in particular.
+%         \br in particular.
 %   \item |texdoc l3build| -- information directly related to |l3build|.
 %   \item |texdoc doc| -- the |doc| package used by |l3build| implicitly.
 %   \item |texdoc docstrip| -- the |docstrip| package used by |l3build| implicitly.
