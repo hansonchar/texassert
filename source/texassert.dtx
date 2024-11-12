@@ -138,7 +138,6 @@
   \expandafter\ifx\csname import:#1\endcsname\relax
     \input #1
     \expandafter\gdef\csname import:#1\endcsname{}%
-    % Imported #1\par
   \fi
 }
 %    \end{macrocode}
@@ -227,7 +226,7 @@
 \newcount\length
 \chardef\temp=\catcode`@\catcode`@=11
 
-\def\lengthof#1{\length=0 %
+\def\lengthof#1{\length=0
   \bgroup
     \edef\lengthof@input{#1}%
     \ifEmpty\lengthof@input\then
