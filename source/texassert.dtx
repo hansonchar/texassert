@@ -68,8 +68,9 @@
 %
 % \section{Usage Examples}
 %
-% This section assumes you already have the |texassert| package installed, for instance,
-% via |l3build install| (under the \href{https://github.com/hansonchar/texassert}{project}'s root folder).
+% This section assumes you already have the |texassert| package installed via, for instance,
+% running |l3build install| under the \href{https://github.com/hansonchar/texassert}{project}'s
+% root folder.
 %
 % \subsection{Length Assertions}
 % To unit test the |\lengthof| macro in this library, for example, we can
@@ -160,6 +161,8 @@
 %   \item Michel Gossens, Frank Mittelbach, and Alexander Samarin.
 %         \textit{The \LaTeX\ Companion.}
 %         Addison Wesley, Reading, Massachusetts, October~1,~1994. ISBN~0-201-54199-8.
+%   \item David Salomon. \textit{The Advanced \TeX book.}
+%         Springer-Verlag New York, 1995. ISBN~0-387-94556-3.
 % \end{enumerate}
 %
 %^^A The package’s source code is delineated by putting it between
@@ -262,32 +265,13 @@
 %   \begin{macro}{\lengthof}\marg{string}
 %     Computes the length of the given string parameter when fully expanded.
 %    \begin{macrocode}
-\input import \import{common}
-
 \newcount\length
-\chardef\temp=\catcode`@\catcode`@=11
-
-\def\lengthof#1{\length=0
-  \bgroup
-    \edef\lengthof@input{#1}%
-    \ifEmpty\lengthof@input\then
-      \let\next=\relax
-    \else
-      \def\next{\expandafter\lengthofA\lengthof@input\eot}%
-    \fi
-    \next
-  \egroup
-}
-\def\lengthofA#1#2\eot{\global\advance\length by1
-  \ifEmpty#2\then
-    \let\next=\relax
-  \else
-    \def\next{\lengthofA#2\eot}%
-  \fi
-  \next
-}
-
-\catcode`@=\temp % restore the original catcode for @
+\def\lengthof#1{{\edef\x{#1}\global\length=0
+  \expandafter\lengthofA\x\end
+}}
+\def\lengthofA#1{\ifx#1\end\else
+  \global\advance\length by1
+  \expandafter\lengthofA\fi}
 %    \end{macrocode}
 %   \end{macro}
 % \end{macro}
@@ -355,7 +339,7 @@
 % \begin{macro}{assert.tex}
 %   Contains the code used for assertion purposes.
 %    \begin{macrocode}
-\input import \import{checkeq}
+\input import \import{checkeq} \import{common}
 
 \ifDefined\ProvidesPackage\then
   \ProvidesPackage{texassert}
