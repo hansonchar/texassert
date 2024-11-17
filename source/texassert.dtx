@@ -374,17 +374,14 @@
 \def\asserteq#1=#2{{%
   \global\advance\countassertions by1
   \edef\assert@a{#1}%
-  % \message{assert@a: [\meaning\assert@a]}%
   \edef\assert@b{#2}%
-  % \message{assert@b: [\meaning\assert@b]}%
   \ifx\assert@a\assert@b\relax\relax
     \global\advance\countassertionspassed by1
   \else
     \global\advance\countassertionsfailed by1
-    \message{...}%
     \def\errmsg{*** assertion (\the\countassertions) failure:
       `#1' not equal `#2' ***}%
-    \message{\errmsg}%
+    \debug{\errmsg}%
     \ifassertmessageonly\else
       \medbreak
       \indent\indent{\errmsg}%
@@ -401,18 +398,15 @@
 \def\asserteqnocat#1=#2{{%
   \global\advance\countassertions by1
   \edef\assert@a{#1}%
-  % \message{assert@a: [\meaning\assert@a]}%
   \edef\assert@b{#2}%
-  % \message{assert@b: [\meaning\assert@b]}%
   \checkeq\assert@a\assert@b
   \ifeq
     \global\advance\countassertionspassed by1
   \else
     \global\advance\countassertionsfailed by1
-    \message{...}%
     \def\errmsg{*** assertion (\the\countassertions) failure:
       `#1' not equal `#2' ***}%
-    \message{\errmsg}%
+    \debug{\errmsg}%
     \ifassertmessageonly\else
       \medbreak
       \indent\indent{\errmsg}%
@@ -429,15 +423,12 @@
 \def\assertneq#1=#2{{%
   \global\advance\countassertions by1
   \edef\assert@a{#1}%
-  % \message{assert@a: [\meaning\assert@a]}%
   \edef\assert@b{#2}%
-  % \message{assert@b: [\meaning\assert@b]}%
   \ifx\assert@a\assert@b\relax\relax
     \global\advance\countassertionsfailed by1
-      \message{...}%
       \def\errmsg{*** assertion (\the\countassertions) failure:
         `#1' equal `#2' ***}%
-      \message{\errmsg}%
+      \debug{\errmsg}%
       \ifassertmessageonly\else
         \medbreak
         \indent\indent{\errmsg}%
@@ -459,7 +450,7 @@
       assertions passed i.e.
     \the\countassertionsfailed/\the\countassertions\space
       assertions failed.}%
-  \message{\summary}%
+  \debug{\summary}%
   \ifassertmessageonly\else
     \medbreak
     \summary

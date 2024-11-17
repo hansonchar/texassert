@@ -26,4 +26,4 @@ Nested if's with \let
 ============================================================
 PASSED
 PASSED
-Assertion Summary: 6/6 assertions passed i.e. 0/6 assertions failed.
+[DEBUG] Assertion Summary: 6/6 assertions passed i.e. 0/6 assertions failed.

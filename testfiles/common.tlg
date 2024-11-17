@@ -6,7 +6,7 @@ Testing \assertTrue
 PASSED
 PASSED
 PASSED
-Assertion Summary: 3/3 assertions passed i.e. 0/3 assertions failed.
+[DEBUG] Assertion Summary: 3/3 assertions passed i.e. 0/3 assertions failed.
 ============================================================
 Testing \assertFalse
 ============================================================
@@ -14,7 +14,7 @@ PASSED
 PASSED
 PASSED
 PASSED
-Assertion Summary: 4/4 assertions passed i.e. 0/4 assertions failed.
+[DEBUG] Assertion Summary: 4/4 assertions passed i.e. 0/4 assertions failed.
 ============================================================
 Testing \ifUndefined
 ============================================================
@@ -26,7 +26,7 @@ PASSED
 PASSED
 PASSED
 PASSED
-Assertion Summary: 8/8 assertions passed i.e. 0/8 assertions failed.
+[DEBUG] Assertion Summary: 8/8 assertions passed i.e. 0/8 assertions failed.
 ============================================================
 Testing \ifDefined
 ============================================================
@@ -35,10 +35,10 @@ PASSED
 PASSED
 PASSED
 PASSED
-Assertion Summary: 5/5 assertions passed i.e. 0/5 assertions failed.
+[DEBUG] Assertion Summary: 5/5 assertions passed i.e. 0/5 assertions failed.
 ============================================================
 Testing \not
 ============================================================
 PASSED
 PASSED
-Assertion Summary: 2/2 assertions passed i.e. 0/2 assertions failed.
+[DEBUG] Assertion Summary: 2/2 assertions passed i.e. 0/2 assertions failed.
