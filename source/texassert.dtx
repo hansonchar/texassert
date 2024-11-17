@@ -453,12 +453,11 @@
 %     then resets to a state as if no assertion has been made.
 %    \begin{macrocode}
 \def\assertionsummary{{%
-  \def\sp{ }%
   \def\summary{%
     Assertion Summary:
-      \the\countassertionspassed/\the\countassertions\sp
+      \the\countassertionspassed/\the\countassertions\space
       assertions passed i.e.
-    \the\countassertionsfailed/\the\countassertions\sp
+    \the\countassertionsfailed/\the\countassertions\space
       assertions failed.}%
   \message{\summary}%
   \ifassertmessageonly\else
