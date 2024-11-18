@@ -211,7 +211,7 @@
 %    \begin{macrocode}
 \newif\ifdebug
 \debugtrue
-\def\debug#1{\ifdebug \immediate\write16{[DEBUG] #1}\fi}
+\long\def\debug#1{\ifdebug \immediate\write16{[DEBUG] #1}\fi}
 %    \end{macrocode}
 %   \end{macro}
 %
